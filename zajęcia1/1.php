@@ -2,7 +2,7 @@
 <html lang="pl" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="../css/1.css">
+    <link rel="stylesheet" href="css/1.css">
     <title>Plik php</title>
   </head>
   <body>
