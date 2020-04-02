@@ -1,0 +1,20 @@
+p, a {
+    border: solid 1px grey;
+    /*szerokość*/
+    width: 50%;
+    /*margines*/
+    margin: 20px;
+    /*wewnątrz elementu będzie przerwa*/
+    padding: 30px;
+    /*wszystkie bloki będą miały tą samą wilkość*/
+    /*display: block;*/
+    /*szerokość*/
+    display: inline-block;
+}
+
+div {
+    padding: 20px;
+    background: #eee;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.4em;
+}

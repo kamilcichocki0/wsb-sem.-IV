@@ -1,0 +1,38 @@
+p{
+    background-color: azure;
+    /*rozmiar czcionki*/
+    font-size: 1.5em;
+    /*kolor czcionki*/
+    color: blue;
+    /*cieniowanie*/
+    text-shadow: 2px 3px 6px red;
+}
+
+/*odwołanie do konkretnego id w HTML*/
+#shadow {
+    font-size: 1.5em;
+    /*dwa cienie*/
+    text-shadow: 2px 3px 6px red, 4px 5px 6px green;
+}
+
+div {
+    background-color: #000;
+    font-size: 2em;
+    text-shadow: 0px 2px 0px #FFF, 0px 3px 0px #AAA, 0px 3px 4px #AAA;
+}
+
+#boxShadow {
+    background-color: honeydew;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 0px 0px 6px black;
+}
+
+#boxShadow1 {
+    background-color: honeydew;
+    text-align: center;
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 10px 10px 15px black;
+}
