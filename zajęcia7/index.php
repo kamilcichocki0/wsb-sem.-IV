@@ -1,3 +1,6 @@
+<?php 
+  session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,12 +16,15 @@
         <th>Id</th>
         <th>Imię</th>
         <th>Nazwisko</th>
+        <th>Data urodzenia</th>
         <th>Rok urodzenia</th>
         <th>Miasto</th>
         <th>Województwo</th>
     </tr>
     <?php
         require_once('./scripts/connect.php');
+        require_once('./scripts/functions.php');
+
         $sql = "SELECT `user`.`id`, `user`.`name`, `user`.`surname`, `user`.`birthday`, `city`.`city`, `voivodeship`.`voivodeship`
                   FROM `user` 
              LEFT JOIN `city` ON `user`.`cityid` = `city`.`id`
@@ -28,19 +34,50 @@
         while ($row = mysqli_fetch_assoc($result)) {
             //echo $row['id'];
             //echo $row['name'], '<br>';
+            $year = year($row['birthday']);
             echo <<<ROW
             <tr>
                 <td>$row[id]</td>
                 <td>$row[name]</td>
                 <td>$row[surname]</td>
                 <td>$row[birthday]</td>
+                <td>$year</td>
                 <td>$row[city]</td>
                 <td>$row[voivodeship]</td>
+                <td><a href="./scripts/del_user.php?id=$row[id]">Usuń</a></td>
             </tr>
             ROW;
         }
         //Dodaj tabelę województwo, utwórz relację pomiędzy tabelami województwo i city, dodaj w tabeli user pole województwo. Dodaj w tabeli w pliku index.php województwo
     ?>
-    </table>
+</table>
+    <?php
+        if (isset($_GET['add_user'])) {
+            echo '<h3>Dodawanie użytkownika</h3>';
+            if (isset($_SESSION['error'])) {
+                echo $_SESSION['error'];
+                unset($_SESSION['error']);
+            }
+    ?>
+        <form action="./scripts/add_user.php" method="post">
+            <input type="text" name="name" placeholder="Imię"><br>
+            <input type="text" name="surname" placeholder="Nazwisko"><br>
+            <input type="date" name="birthday"><br>
+            <select name="city">
+                <?php
+                    $sql="SELECT * FROM city";
+                    $result = mysqli_query($conn, $sql);
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        echo "<option value=\"$row[id]\">$row[city]</option>";
+                    }
+                ?>
+            </select><br>
+            <input type="submit" value="Dodaj użytkownika">
+        </form>
+    <?php
+        }else{
+            echo '<h3><a href="?add_user=">Dodaj użytkownika</a></h3>';
+        }
+    ?>
 </body>
 </html>
