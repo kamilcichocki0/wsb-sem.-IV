@@ -61,7 +61,7 @@
           <!-- /.col -->
         </div>
       </form>
-
+<!--
       <div class="social-auth-links text-center mb-3">
         <p>- OR -</p>
         <a href="#" class="btn btn-block btn-primary">
@@ -70,8 +70,8 @@
         <a href="#" class="btn btn-block btn-danger">
           <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
         </a>
-      </div>
-      <!-- /.social-auth-links -->
+      </div> -->
+      <!-- /.social-auth-links --> 
 
       <p class="mb-1">
         <a href="./pages/forgot-password.html">I forgot my password</a>
