@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +27,29 @@
     <a href="../"><b>Admin</b>LTE</a>
   </div>
 
+<?php
+  if (isset($_SESSION['error'])) {
+    echo <<<ERROR
+      <div class="card card-outline card-danger">
+        <div class="card-header">
+          <h3 class="card-tittle">{$_SESSION['error']}</h3>
+          <div class="card-tools">
+          </div>
+        </div>
+      </div>
+  ERROR;
+    unset($_SESSION['error']);
+  }
+?>
+
+
   <div class="card">
     <div class="card-body register-card-body">
       <p class="login-box-msg">Register a new membership</p>
 
       <form action="../scripts/add_user.php" method="post">
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Name">
+          <input type="text" class="form-control" placeholder="Name" name="name">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -38,7 +57,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="text" class="form-control" placeholder="Surname">
+          <input type="text" class="form-control" placeholder="Surname" name="surname">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
@@ -46,7 +65,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name="email1">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -54,7 +73,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Retype Email">
+          <input type="email" class="form-control" placeholder="Retype Email" name="email2">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -62,7 +81,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name="pass1">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -70,7 +89,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Retype password">
+          <input type="password" class="form-control" placeholder="Retype password" name="pass2">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -78,7 +97,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="date" class="form-control" placeholder="Date">
+          <input type="date" class="form-control" name="date">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
