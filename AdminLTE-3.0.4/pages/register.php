@@ -97,10 +97,10 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="date" class="form-control" name="date">
+          <input type="date" class="form-control" name="birthday">
           <div class="input-group-append">
             <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+              <span class="fas fa-calendar-alt"></span>
             </div>
           </div>
         </div>

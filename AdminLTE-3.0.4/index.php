@@ -1,3 +1,6 @@
+<?php
+  session_start();
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,13 +27,41 @@
     <a href="./index.php"><b>Admin</b>LTE</a>
   </div>
   <!-- /.login-logo -->
+
+<?php
+  if (isset($_GET['register'])) {
+    echo <<<ERROR
+      <div class="card card-outline card-success">
+        <div class="card-header">
+          <h3 class="card-tittle">Prawidłowo dodano użytkownika</h3>
+          <div class="card-tools">
+          </div>
+        </div>
+      </div>
+  ERROR;
+  }
+
+  if (isset($_SESSION['error'])) {
+    echo <<<ERROR
+      <div class="card card-outline card-danger">
+        <div class="card-header">
+          <h3 class="card-tittle">{$_SESSION['error']}</h3>
+          <div class="card-tools">
+          </div>
+        </div>
+      </div>
+  ERROR;
+    unset($_SESSION['error']);
+  }
+?>
+
   <div class="card">
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="./index.php" method="post">
+      <form action="./scripts/login.php" method="post" autocompleted = "off"> <!-- autocompleted = "off"> -->
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" placeholder="Email" name = "email" autocompleted = "off"> <!-- autocompleted = "off"> --> <!-- autocompleted = "false"> -->
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -38,7 +69,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" placeholder="Password" name = "pass">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
