@@ -30,7 +30,7 @@
             <?php
             }
         }else{
-            $_SESSION['error'] = 'Niepoprawny adres email!';
+            $_SESSION['error'] = 'Niepoprawny adres email !';
         ?>
             <script>
                 history.back();

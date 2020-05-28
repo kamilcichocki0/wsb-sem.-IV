@@ -17,7 +17,7 @@
 
         if (!isset($_POST['terms'])) {
             $error=1;
-            $_SESSION['error'] = "Zaznacz pole z regulaminem!";
+            $_SESSION['error'] = "Zaznacz pole z regulaminem !";
         }
 
         if ($error==1) {
