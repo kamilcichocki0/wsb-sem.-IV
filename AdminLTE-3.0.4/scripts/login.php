@@ -1,6 +1,6 @@
 <?php
     session_start();
-    if (($_POST['email']) && ($_POST['pass'])) {
+    if ($_POST['email'] && ($_POST['pass']) {
         require_once './connect.php';
         if ($conn->connect_errno){
             $_SESSION['error'] = 'Błędne połączenie z bazą danych!';
@@ -8,8 +8,8 @@
             exit();
         }
 
-        $email = htmlentities($_POST['email'] ENT_QUOTES, "UTF-8");
-        $pass = htmlentities($_POST['pass'] ENT_QUOTES, "UTF-8");
+        $email = htmlentities($_POST['email'], ENT_QUOTES, "UTF-8");
+        $pass = htmlentities($_POST['pass'], ENT_QUOTES, "UTF-8");
 
         $sql = sprintf("SELECT * FROM user WHERE email = '%s'", mysqli_real_escape_string ($conn, $email));
         $result = mysqli_query($conn, $sql);
