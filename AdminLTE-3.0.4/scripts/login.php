@@ -1,7 +1,6 @@
 <?php
     session_start();
-
-    if (!empty($_POST['email']) && !empty($_POST['pass'])) {
+    if (($_POST['email']) && ($_POST['pass'])) {
         require_once './connect.php';
         if ($conn->connect_errno){
             $_SESSION['error'] = 'Błędne połączenie z bazą danych!';
@@ -9,41 +8,60 @@
             exit();
         }
 
-        $email = $_POST['email'];
-        $pass = $_POST['pass'];
+        $email = htmlentities($_POST['email'] ENT_QUOTES, "UTF-8");
+        $pass = htmlentities($_POST['pass'] ENT_QUOTES, "UTF-8");
 
-        $sql = "SELECT id_user, email FROM user WHERE email = '$email'";
+        $sql = sprintf("SELECT * FROM user WHERE email = '%s'", mysqli_real_escape_string ($conn, $email));
         $result = mysqli_query($conn, $sql);
 
-        if (!empty($row = mysqli_fetch_assoc($result))) {
-            $sql = "SELECT id_user, email  FROM user WHERE email = '$email' AND pass = '$pass'";
-            $result = mysqli_query($conn, $sql);
-            if (!empty($row = mysqli_fetch_assoc($result))) {
-                echo $row['id_user'], '<br>';
-                echo $row['email'];
+        if ($result = $conn->query($sql)) {
+            $conn->close();
+            $count = $result->num_rows;
+            if ($count != 1) {
+                $_SESSION['error'] = 'Błedny login lub hasło!';
+                header('location: ../');
+                exit();
+            }
+            //porównanie haseł
+            $user = $result->fetch_assoc();
+            $passdb = $user['pass'];
+            if (!password_verify($pass, $passdb)) {
+                $_SESSION['error'] = 'Błedny login lub hasło!';
+                header('location: ../');
+                exit();
+            }
+            if ($user['status_id' == 3]) {
+                $_SESSION['error'] = 'Brak możliwości zalogowania, skontaktuj się z administartorem!';
+                header('location: ../');
+                exit();
+            }elseif($user['status_id'] == 2) {
+                $_SESSION['error'] = 'Aktywuj swoje konto!';
+                header('location: ../');
             }else{
-                $_SESSION['error'] = 'Niepoprawne hasło!';
-            ?>
-                <script>
-                    history.back();
-                </script>
-            <?php
+                $_SESSION['logged']['name'] = $user['name'];
+                $_SESSION['logged']['surname'] = $user['surname'];
+                $_SESSION['logged']['email'] = $user['email'];
+                $_SESSION['logged']['permission'] = $user['permission_id'];
+                switch ($user['permission_id']) {
+                    case '1':
+                        header('location: ../pages/logged/admin.php');
+                        exit();
+                        break;
+                    case '2':
+                        header('location: ../pages/logged/user.php');
+                        exit();
+                        break;
+                    case '3':
+                        header('location: ../pages/logged/moderator.php');
+                        exit();
+                        break;
+                }
             }
         }else{
-            $_SESSION['error'] = 'Niepoprawny adres email !';
-        ?>
-            <script>
-                history.back();
-            </script>
-        <?php
+            echo "Błędne zapytanie!";
         }
     }else{
         $_SESSION['error'] = 'Wypełnij wszystkie dane!';
-    ?>
-        <script>
-            history.back();
-        </script>
-    <?php
+        header('location: ../');
     }
-
 ?>
