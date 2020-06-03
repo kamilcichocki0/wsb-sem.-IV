@@ -44,7 +44,7 @@
     $birthday = $_POST['birthday'];
 
     //szyfrowanie hasła za pomocą ARGON2ID
-    //$pass = password_hash($pass, PASSWORD_ARGON2ID);
+    $pass = password_hash($pass, PASSWORD_ARGON2ID);
 
     $city = 1;
 
